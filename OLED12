@@ -1,0 +1,57 @@
+#include <Wire.h>      //Biblioteca I2C
+#include <Adafruit_GFX.h>   //Biblioteca Gráfica
+#include <Adafruit_SST1306.h>  //Biblioteca do OLED
+
+//--------Configurações do OLED--------
+#define LARGURA_OLED 128
+#define ALTURA_OLED 64
+
+//--------Criação do display OLED------
+Adafruit_SST1306 telaOLED(
+  LARGURA_OLED,
+  ALTURA_OLED,
+  &Wire   //Comunicação com I2C
+  -1     //Sem pino de resert dedicado
+);
+
+//--------Configuração Inicial------
+void setup() {
+  //inicia o monitor serial
+  Serial.begin(9600);
+
+  //Iniciar o display OLED
+  if(!telaOLED.begin(SSD1306_SWITCHCAPVCC, 0x3c)){
+   Serial.println("Erro ao iniciar o OLED");
+   for (;;);
+  }
+
+  //Definindo o tamanho do Texto
+  telaOLED.setTextSize(2);
+
+  //Definindo a cor do texto
+  telaOLED.setTextColor(WHITE);
+
+  //Limpa a tela
+  telaOLED.clearDisplay();
+
+  //Definição da posição do texto
+  telaOLED.setCursor(0,10);
+
+  //Mensagem
+  telaOLED.println("Leticia Cardoso");
+
+  //Envia o conteúdo para o display
+  telaOLED.display();
+
+}
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  Serial.println("Hello, ESP32!");
+}
+
+void loop() {
+  // Não precisa inserir nada
+ 
+}
